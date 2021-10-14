@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Call Monitor</title>
+    <style>
+        #callMonitor {
+            display: none;
+        }
+        #icons {
+            display: none;
+        }
+        #logout {
+            display: none;
+        }
+        #error {
+            color: red;
+            display: none;
+        }
+        body {
+
+            padding-bottom: 40px;
+            background-color: #f5f5f5;
+        }
+        label{
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+
+        input[type=text], input[type=password] {
+            padding: 12px 20px;
+            margin: -1px 0;
+
+            border: 1px solid #d9d2d2;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #2e8fd9;
+            color: white;
+            width: 328px;
+            padding: 14px 20px;
+            margin: 10px 0;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+        }
+    </style>
+    <meta name="theme-color" content="#7952b3">
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+</head>
+<body>
+<header>
+    <div class="px-4 py-2 bg-dark text-white">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                    <img align="left" width="70" height="70"  src="logo_white.png" alt="logo"><svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+                </a>
+
+
+                <ul id="icons" class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+
+
+
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                            <img class="bi d-block mx-auto mb-1" src="home.png" width="38" height="24"><use xlink:href="#home"/></img>
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                            <img class="bi d-block mx-auto mb-1" src="dashboard.png" width="28" height="24"><use xlink:href="#speedometer2"/></img>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:logout()" class="nav-link text-white">
+                            <img class="bi d-block mx-auto mb-1" src="logout.png" width="24" height="24"></img>
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<center>
+    <br>
+    <div id="Login" class="Login">
+        <h2 style="text-align:center" >Esdiac Call Monitoring</h2>
+        <label id="error" >Incorrect Username or Password</label>
+        <br>
+
+            <input id="username" type="text" v-model = "input.username" size="35" placeholder="Enter Username" required>
+            <br>
+            <input id="password" type="password" v-model = "input.password" size="35" placeholder="Enter Password" required>
+
+        <br>
+        <button onclick="verify()" type="button" class="btn btn-dark">Login</button>
+        <br><br>
+        &copy; 2021 ESDIAC APP - All Rights Reserved
+
+    </div>
+
+<div id="callMonitor" >
+<h1 style="text-align:center">ESDIAC CALL MONITORING</h1>
+<br>
+<table  class="table table-bordered" border="5" id = callTable>
+    <thead style="background-color:black">
+    <tr>
+        <th scope="col" style="text-align:center"><span style="color: white; ">ID</span></th>
+        <th scope="col" style="text-align:center"><span style="color: white; ">EVENT</span></th>
+        <th scope="col" style="text-align:center"><span style="color: white; ">DATE</span></th>
+        <th scope="col" style="text-align:center"><span style="color: white; ">FROM</span></th>
+        <th scope="col" style="text-align:center"><span style="color: white; ">TO</span></th>
+        <th scope="col" style="text-align:center"><span style="color: white; ">CALL TYPE</span></th>
+        <th scope="col" style="text-align:center"><span style="color: white; ">MEMBERS</span></th>
+        <th scope="col" style="text-align:center"><span style="color: white; ">STATUS</span></th>
+        <th scope="col" style="text-align:center"><span style="color: white; ">DURATION</span></th>
+    </tr>
+    </thead>
+    <tbody>
+
+
+    </tbody>
+</table>
+</div>
+</center>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/libphonenumber-js@1.9.21/bundle/libphonenumber-max.js"></script>
+<script>
+
+    var eventSource = new WebSocket("ws://localhost:8882")
+    if(localStorage.getItem('username') != null && localStorage.getItem('password')!=null){
+         document.getElementById('username').value = localStorage.getItem('username')
+        document.getElementById('password').value =localStorage.getItem('password')
+        verify()
+    }
+    function verify(){
+
+        eventSource.addEventListener('message',function(e){
+            var currentData = e.data
+            var data = JSON.parse(currentData);
+            if (data.isValid == "true") {
+                localStorage.setItem("username",document.getElementById('username').value)
+                localStorage.setItem("password",document.getElementById('password').value)
+                document.getElementById('Login').style.display = "none"
+                document.getElementById('callMonitor').style.display = "block"
+                document.getElementById('icons').style.display = "flex"
+                //document.getElementById('logout').style.display = "block"
+                start();
+            }
+            else{
+                document.getElementById('error').style.display = "block"
+            }
+        },false);
+        setTimeout(function(){
+            eventSource.send(document.getElementById('username').value+",:,"+document.getElementById('password').value)
+        }, 200);
+    }
+    function logout(){
+        localStorage.removeItem('username')
+        localStorage.removeItem('password')
+        window.location.href = 'index.html';
+    }
+    function start() {
+        setInterval(function duration(){
+            var table, tr, td, i;
+            table = document.getElementById("callTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 1; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td");
+                if(td[1].innerHTML == ('DialEnd')||td[1].innerHTML == 'join') {
+                    var tempDuration = new Date().getTime() / 1000 - (parseInt(td[9].innerHTML))
+                    var tempSec = parseInt(tempDuration % 60)
+                    var tempMin = parseInt((tempDuration / 60) % 60)
+                    var tempHr = parseInt((tempDuration / 60 / 60) % 24)
+                    var tempDays = parseInt(tempDuration / 60 / 60 / 24)
+                    var oneSec = tempSec == 1
+                    var oneMin = tempMin == 1
+                    var oneHr = tempHr == 1
+                    var oneDay = tempDays == 1
+                    var checkSec = (oneSec ? " second " : " seconds ")
+                    var checkMin = (oneMin ? " minute, " : " minutes, ")
+                    var checkHr = (oneHr ? " hour, " : " hours, ")
+                    var checkDay = (oneDay ? " day, " : " days, ")
+                    if (tempDays != 0)
+                        td[8].innerHTML = tempDays + checkDay + tempHr + checkHr + tempMin + checkMin + tempSec + checkSec
+                    else if (tempHr != 0)
+                        td[8].innerHTML = tempHr + checkHr + tempMin + checkMin + tempSec + checkSec
+                    else if (tempMin != 0)
+                        td[8].innerHTML = tempMin + checkMin + tempSec + checkSec
+                    else td[8].innerHTML = tempSec + checkSec
+                }
+            }
+        },1000)
+
+        eventSource.addEventListener('message',function(e){
+            var currentData = e.data
+            var data = JSON.parse(currentData);
+            if (data.isValid == "true") {
+                eventSource.send("thisuserhasloggedin")
+            }
+            console.log(data);
+            if(data.Event == "CreateEndpoint" || data.event == "join") {
+                addCall(data);
+            }
+            else if(data.Event == "DeleteEndpoint" || data.event == "quit"){
+                deleteCall(data);
+            }
+            else if(data.Event != null) {
+                console.log("update")
+                updateCall(data);
+            }
+        },false);
+        eventSource.addEventListener('error',function(e){
+            console.log("frontend");
+            console.log(typeof e);
+        }, false);
+        eventSource.send("thisuserhasloggedin")
+    }
+
+
+    function addCall(data) {
+        var table, tr, td, i, j;
+        table = document.getElementById("callTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = tr.length -1; i >=0; i--) {
+            td = tr[i].getElementsByTagName("td");
+            for (j = 0; j < td.length; j++) {
+                if ((td[j].innerHTML.indexOf(data.callId) > -1 && data.callType == "Voice Call") || (td[j].innerHTML.indexOf(data.roomID)>-1 && data.callType == "Video Call")) {
+                    console.log("found")
+                    if(td[1].innerHTML == "join"){
+                        console.log("join")
+                        updateCall(data)
+                        return;
+                    }
+                    else
+                        return;
+                }
+            }
+        }
+        var table = document.getElementById("callTable");
+        var html_out = "<td align='center'>" + (data.callId ==null ? data.roomID : data.callId) + "</td><td align='center'>" + (data.Event ==null ? data.event : data.Event)+ "</td><td align='center'>" + data.date + "</td><td align='center'>" + (data.callerId ==null ? "" : data.callerId+"<br>"+data.countryFrom) + "</td><td align='center'>" + (data.callee ==null ? "" : data.Callee+"<br>"+data.countryTo) + "</td><td align='center'>" + data.callType + "</td><td align='center'></td><td align='center'>" + data.DialStatus + "</td><td align='center'></td><td style='display: none' align='center'></td><td style='display: none' align='center'></td><td style='display: none' align='center'>"+ data.userID +"</td><td style='display: none' align='center'></td><td style='display: none' align='center'></td>";
+        var tr = document.createElement("tr");
+
+        tr.innerHTML = html_out;
+        table.appendChild(tr);
+        var td = tr.getElementsByTagName("td");
+        if (data.callType != null) {
+            td[5].innerHTML = data.callType;
+        } else td[5].innerHTML = "";
+        if(data.callType == "Video Call") {
+            td[6].innerHTML = td[10].innerHTML + "<br>" + td[11].innerHTML + "<br>" + td[12].innerHTML + "<br>" + td[13].innerHTML
+        }
+        if (data.DialStatus != null) {
+            td[7].innerHTML = data.DialStatus;
+        } else td[7].innerHTML = "";
+        if(data.event == "join"){
+            td[9].innerHTML = data.startTime /1000;
+        }else{
+            td[9].innerHTML = "";
+        }
+    }
+    function deleteCall(data) {
+        sleep(20);
+        var table, tr, td, i, j;
+        table = document.getElementById("callTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = tr.length -1; i >=0; i--) {
+            td = tr[i].getElementsByTagName("td");
+            for (j = 0; j < td.length; j++) {
+                if (data.Event != null && td[j].innerHTML.indexOf(data.callId) > -1) {
+                    table.deleteRow(i);
+                }
+                else if(td[j].innerHTML.indexOf(data.userID) > -1 && data.userID!=null){
+                    console.log("6")
+                    if(td[10].innerHTML == data.userID){
+                        td[10].innerHTML = ""
+                    }else if(td[11].innerHTML == data.userID){
+                        td[11].innerHTML = ""
+                    }else if(td[12].innerHTML == data.userID){
+                        td[12].innerHTML = ""
+                    }else if(td[13].innerHTML == data.userID){
+                        td[13].innerHTML = ""
+                    }
+                    td[6].innerHTML = td[10].innerHTML+"<br>"+td[11].innerHTML+"<br>"+td[12].innerHTML+"<br>"+td[13].innerHTML
+                    if(td[6].innerHTML == "<br><br><br>"){
+                        table.deleteRow(i);
+                    }
+
+                }
+            }
+        }
+    }
+    function sleep(milliseconds) {
+        const date = Date.now();
+        let currentDate = null;
+        do {
+            currentDate = Date.now();
+        } while (currentDate - date < milliseconds);
+    }
+    function updateCall(data) {
+        var table, tr, td, i, j;
+        table = document.getElementById("callTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = tr.length -1; i >=0; i--) {
+            td = tr[i].getElementsByTagName("td");
+            for (j = 0; j < td.length; j++) {
+                if (td[j].innerHTML.indexOf(data.callId) > -1&& data.Event != null) {
+                    console.log("match")
+                    td[1].innerHTML = data.Event;
+                    if (data.Event == "DialEnd") {
+                        console.log(data.startTime);
+                        td[9].innerHTML = data.startTime / 1000;
+                    }
+                    td[7].innerHTML = data.DialStatus;
+                    if (data.DialStatus != null) {
+                        td[7].innerHTML = data.DialStatus;
+                    } else td[7].innerHTML = "";
+                }
+                if (data.callType == "Video Call" && td[j].innerHTML.indexOf(data.roomID) > -1) {
+                    if(td[10].innerHTML.indexOf(data.userID) <= -1 && td[11].innerHTML.indexOf(data.userID) <= -1&&td[12].innerHTML.indexOf(data.userID) <= -1&&td[13].innerHTML.indexOf(data.userID) <= -1) {
+
+                        if (td[10].innerHTML == "") {
+                            console.log("10")
+                            td[10].innerHTML = data.userID;
+                        } else if (td[11].innerHTML == "") {
+                            console.log("11")
+                            td[11].innerHTML = data.userID;
+                        } else if (td[12].innerHTML == "") {
+                            console.log("12")
+                            td[12].innerHTML = data.userID;
+                        } else if (td[13].innerHTML == "") {
+                            console.log("13")
+                            td[13].innerHTML = data.userID;
+                        } else {
+                            console.log("fail")
+                        }
+                        td[6].innerHTML = td[10].innerHTML + "<br>" + td[11].innerHTML + "<br>" + td[12].innerHTML + "<br>" + td[13].innerHTML
+                    }
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>
